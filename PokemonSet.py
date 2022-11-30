@@ -127,10 +127,17 @@ class PokemonSet():
         else:
             selected_depth = depth
 
-        print(f"Using depth {selected_depth}")
+        #print(f"Using depth {selected_depth}")
         model_tree = self.fit_tree(X_train, y_train, selected_depth)
 
         # score model on testing data and print it out 
-        print(f"Score on testing data : {model_tree.score(X_test, y_test)}")
+        #print(f"Score on testing data : {model_tree.score(X_test, y_test)}")
 
         return model_tree
+
+def make_model_object(): 
+    df = pd.read_csv("pokemon.csv") 
+    ps = PokemonSet(data = df,feature = ["base_egg_steps","base_happiness","base_total","sp_attack","capture_rate"])
+    ps.clean_data()
+    X_train, X_test, y_train, y_test = ps.split()
+    return ps.make_decision_tree_model()
