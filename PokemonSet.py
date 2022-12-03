@@ -12,6 +12,22 @@ warnings.simplefilter(action="ignore", category=SettingWithCopyWarning)
 
 
 class PokemonSet:
+    """
+        This class preprocess the Pokemon data, visualize the correlation between features, and train a Decision Tree to
+        tell whether a Pokemon is legendary or not.
+    Attributes:
+        data (pd.DataFrame): the Pokemon data used
+        feature (list): the features used for finding legendary Pokemons
+    Methods:
+        clean_data():
+            Preprocess the data
+        corr(**kwargs):
+            Calculate and visualize correlation matrix
+        split(**kwargs):
+            Split dataset to train set and test set
+        make_decision_tree_model(**kwargs):
+            Generate and fit Decision Tree for the data
+    """
     
     # default features used to train the model
     default_features = ["base_egg_steps","base_happiness","base_total","sp_attack"]
