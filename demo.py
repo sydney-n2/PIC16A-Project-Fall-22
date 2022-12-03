@@ -20,6 +20,12 @@ def validate(value):
             return 2
         else:
             return 0 
+        
+def make_model_object(): 
+    df = pd.read_csv("pokemon.csv") 
+    ps = PokemonSet(data = df,feature = ["base_egg_steps","base_happiness","base_total","sp_attack","capture_rate"])
+    ps.clean_data()
+    return ps.make_decision_tree_model()
 
 print("\n---- Welcome to a subset of the Pokemon wiki -----")
 print("This model has been trained on all the Pokemon from generations 1-7. \nIt can tell you if your Pokemon is legendary or not!") 
