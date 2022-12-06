@@ -26,7 +26,7 @@ def make_model_object():
     df = pd.read_csv("pokemon.csv") 
     ps = PokemonSet(data = df,feature = ["base_egg_steps","base_happiness","base_total","sp_attack","capture_rate"])
     ps.clean_data()
-    return ps.make_decision_tree_model(plotting_enabled=False)
+    return ps.make_decision_tree_model(extra_output_enabled=False)
 
 print("\n---- Welcome to a subset of the Pokemon wiki -----")
 print("This model has been trained on all the Pokemon from generations 1-7. \nIt can tell you if your Pokemon is legendary or not!") 
@@ -53,8 +53,8 @@ while validate(spatk) > 0:
 catch = input("What is this Pokemon's capture rate? ") 
 while validate(catch) > 0: 
     catch = input("What is this Pokemon's base special attack stat? ") 
-    
+
 if model.predict([[egg, happiness, total, spatk, catch]]) > 0: 
-    print("This Pokemon is legendary! ") 
+    print("\nThis Pokemon is legendary! ") 
 else: 
-    print("This Pokemon is not legendary. ") 
+    print("\nThis Pokemon is not legendary. ") 

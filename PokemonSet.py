@@ -117,7 +117,7 @@ class PokemonSet:
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
         return X_train, X_test, y_train, y_test
 
-    def make_decision_tree_model(self, depth=None, random_state = 42, plotting_enabled = True):
+    def make_decision_tree_model(self, depth=None, random_state = 42, extra_output_enabled = True):
         """
             Create a model decision tree for dataset.
             If depth is unassigned, it will iterate depth from 1 to 20, plot the train and test scores,
@@ -157,7 +157,8 @@ class PokemonSet:
                 model_tree = fit_tree(X_train.values, y_train.values, d)
                 train_score.append(cross_val_score(model_tree, X_train, y_train, cv=4).mean())
                 test_score.append(cross_val_score(model_tree, X_test, y_test, cv=4).mean())
-            if plotting_enabled is True:
+            selected_depth = depths[np.argmax(test_score)]
+            if extra_output_enabled is True:
                 plt.scatter(depths, train_score,label="Train Score")
                 plt.scatter(depths, test_score,label="Test Score")
                 plt.title("Train and Test Score vs Tree Depth")
@@ -165,15 +166,16 @@ class PokemonSet:
                 plt.xlabel("Tree Depth")
                 plt.ylabel("Score")
                 plt.show()
-            selected_depth = depths[np.argmax(test_score)]
-            print(f"Using depth {selected_depth}")
+                print(f"Using depth {selected_depth}")
+            
         else:
             selected_depth = depth
 
         model_tree = fit_tree(X_train.values, y_train.values, selected_depth)
 
         # score model on testing and training data and print it out 
-        print(f"Cross Validation Score on training data : {cross_val_score(model_tree, X_train, y_train, cv=4).mean()}")
-        print(f"Cross Validation Score on testing data : {cross_val_score(model_tree, X_test, y_test, cv=4).mean()}")
+        if extra_output_enabled is True:
+            print(f"Cross Validation Score on training data : {cross_val_score(model_tree, X_train, y_train, cv=4).mean()}")
+            print(f"Cross Validation Score on testing data : {cross_val_score(model_tree, X_test, y_test, cv=4).mean()}")
 
         return model_tree
