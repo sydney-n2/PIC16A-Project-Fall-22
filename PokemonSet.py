@@ -6,10 +6,10 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn import tree
 
 # ignore some useless warnings which makes things ugly:
-import warnings
-from pandas.core.common import SettingWithCopyWarning
-warnings.simplefilter(action="ignore", category=SettingWithCopyWarning)
-
+# import warnings
+# from pandas.core.common import SettingWithCopyWarning
+# warnings.simplefilter(action="ignore", category=SettingWithCopyWarning)
+pd.options.mode.chained_assignment = None
 
 class PokemonSet:
     """
@@ -117,7 +117,7 @@ class PokemonSet:
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
         return X_train, X_test, y_train, y_test
 
-    def make_decision_tree_model(self, depth=None, random_state = 42):
+    def make_decision_tree_model(self, depth=None, random_state = 42, plotting_enabled = True):
         """
             Create a model decision tree for dataset.
             If depth is unassigned, it will iterate depth from 1 to 20, plot the train and test scores,
@@ -154,22 +154,23 @@ class PokemonSet:
             train_score = []
             test_score = []
             for d in depths:
-                model_tree = fit_tree(X_train, y_train, d)
+                model_tree = fit_tree(X_train.values, y_train.values, d)
                 train_score.append(cross_val_score(model_tree, X_train, y_train, cv=4).mean())
                 test_score.append(cross_val_score(model_tree, X_test, y_test, cv=4).mean())
-            plt.scatter(depths, train_score,label="Train Score")
-            plt.scatter(depths, test_score,label="Test Score")
-            plt.title("Train and Test Score vs Tree Depth")
-            plt.legend()
-            plt.xlabel("Tree Depth")
-            plt.ylabel("Score")
-            plt.show()
+            if plotting_enabled is True:
+                plt.scatter(depths, train_score,label="Train Score")
+                plt.scatter(depths, test_score,label="Test Score")
+                plt.title("Train and Test Score vs Tree Depth")
+                plt.legend()
+                plt.xlabel("Tree Depth")
+                plt.ylabel("Score")
+                plt.show()
             selected_depth = depths[np.argmax(test_score)]
             print(f"Using depth {selected_depth}")
         else:
             selected_depth = depth
 
-        model_tree = fit_tree(X_train, y_train, selected_depth)
+        model_tree = fit_tree(X_train.values, y_train.values, selected_depth)
 
         # score model on testing and training data and print it out 
         print(f"Cross Validation Score on training data : {cross_val_score(model_tree, X_train, y_train, cv=4).mean()}")

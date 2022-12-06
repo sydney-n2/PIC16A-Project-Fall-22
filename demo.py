@@ -1,9 +1,10 @@
 from PokemonSet import *
 import pandas as pd
 # ignore some useless warnings which makes things ugly:
-import warnings
-from pandas.core.common import SettingWithCopyWarning
-warnings.simplefilter(action="ignore", category=SettingWithCopyWarning)
+# import warnings
+# from pandas.core.common import SettingWithCopyWarning
+# warnings.simplefilter(action="ignore", category=SettingWithCopyWarning)
+pd.options.mode.chained_assignment = None
 #there is one more warning at the end that this doesn't clear up lol so it is still there for now
 
 #this demo file will prompt user for a pokemon, then run that pokemon's information through the model and output the model's prediction of if it was a legendary or not 
@@ -25,7 +26,7 @@ def make_model_object():
     df = pd.read_csv("pokemon.csv") 
     ps = PokemonSet(data = df,feature = ["base_egg_steps","base_happiness","base_total","sp_attack","capture_rate"])
     ps.clean_data()
-    return ps.make_decision_tree_model()
+    return ps.make_decision_tree_model(plotting_enabled=False)
 
 print("\n---- Welcome to a subset of the Pokemon wiki -----")
 print("This model has been trained on all the Pokemon from generations 1-7. \nIt can tell you if your Pokemon is legendary or not!") 
