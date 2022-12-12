@@ -46,4 +46,4 @@ We used "The Complete Pokemon Dataset" from Kaggle (https://www.kaggle.com/datas
 No tutorials were used 
 
 ## Demo Video:
-https://drive.google.com/file/d/1Gy9BXOoZ19ucok9jBPRXVzExetvt1fOU/view?usp=sharing
+https://drive.google.com/file/d/11_7v2zEQQ_9PaCg65C8I4xCGLNExEXuo/view?usp=sharing
