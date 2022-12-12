@@ -23,15 +23,15 @@ pandas (1.5.2), numpy (1.23.5), matplotlib (3.6.2), sklearn (1.1.3)
 `Notebook Demo.ipynb` is a jupyter notebook. It shows two more detailed sample uses of the model. The user can specify which features to use to train the model, visualize the correlation matrices for the features, score the models with different complexities, and visualize the decision tree.
 ![Semantic description of image](/readme_figure/fig_corr.png)
 
-*Visualize the correlation matrix of selected features.*
+*↑ Use `PokemonSet.corr()` to visualize the correlation matrix of selected features.*
 
 ![Semantic description of image](/readme_figure/fig_score.png)
 
-*Visualize the scores for different model complexities (max-depth of tree).*
+*↑ Use `PokemonSet.make_decision_tree_model()` to visualize the scores for different model complexities (max-depth of tree).*
 
 ![Semantic description of image](/readme_figure/fig_tree.png)
 
-*Visualize the decision tree after training.*
+*↑ Use `plot_tree()` to visualize the decision tree after training.*
 
 ## Scope and limitations: 
 The dataset we trained the predictive model on only contains the first seven generations of pokemon; it does not include the more recent generations and thus excludes the newer pokemon. One potential extension of this project would be to create a generator which could generate hypothetical but realistic pokemon, complete with stats. 
